@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="eng" xmlns:th="http://www.w3.org/1000/xhtml">
+
+<head th:replace="common/master :: header" />
+
+
+
+<body class="background-color-white" th:onload="${emailSent}? 'success()'" >
+
+	<header th:replace="common/master :: common-header" />
+
+
+	<section id="resent-job-post">
+        <div class="vertical-space-100"></div>
+        <div class="vertical-space-101"></div>
+        
+        <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header" style="background-color: #F26522;color: white;">
+                <h3>Filter Job</h3>
+            </div>
+              <div class="container" style="padding: 30px">
+					<form th:action="@{/jobPostFilter}" method="post" id="jobPostFilter">
+						<div class="form-group">
+	                        <label for="jobTitle">Job title</label><br><br>
+	                        <input type="text" class="form-control" id="jobTitle" th:name="jobTitle" placeholder="Search with job title"/>
+                        </div>
+                        <br>
+						 <div class="form-group">
+                                <label for="jobCategory">Job Category</label><br><br>
+                                <select th:name="jobCategory" id="jobCategory" class="form-control" required>
+                                    <option value="allJobCategory" selected="selected">Search by Job Category</option>
+                                    <option th:each="jobCategory : ${jobCategoriesList}" th:text="${jobCategory}" ></option>
+                                </select>
+                          </div>
+                          <br>
+						
+                         <div class="form-group">
+                                <label for="jobLevel">Job Level</label><br><br>
+                                <select th:name="jobLevel" id="jobLevel" class="form-control" required>
+                                    <option value="allJobLevel" selected="selected">Search by Job Level</option>
+                                    <option >Entry Level</option>
+                                    <option >Manager</option>
+                                    <option >Experienced Non-Manager</option>
+                                    <option >Director and above</option>
+                                </select>
+                            </div>
+                            <br>
+                            
+                            <label for="jobLevel">Job Type</label><br><br>
+                            <div class="form-check">
+							      <label class="form-check-label" for="check1">
+							        <input type="checkbox" class="form-check-input" name="jobTypeFullTime" value="Full Time">Full Time
+							      </label>
+							 </div>
+						    <div class="form-check">
+						      <label class="form-check-label" for="check2">
+						        <input type="checkbox" class="form-check-input" name="jobTypePartTime" value="Part Time">Part Time
+						      </label>
+						    </div>
+						    <div class="form-check">
+						      <label class="form-check-label" for="check2">
+						        <input type="checkbox" class="form-check-input" name="jobTypeFreelancer" value="Freelancer">Freelancer
+						      </label>
+						    </div>
+						    <div class="form-check">
+						      <label class="form-check-label" for="check2">
+						        <input type="checkbox" class="form-check-input" name="jobTypeIntership" value="Internship">Internship
+						      </label>
+						    </div>
+						    <br>
+						    <div class="form-group">
+                                <label for="jobLocation">Job Location:</label><br><br>
+                                <select id="jobLocation" class="form-control" th:name="jobLocation">
+                                <option value="allLocation" selected="selected">Search by Job Location</option>
+                                    <option th:each="jobLocation : ${jobLocationsList}" th:text="${jobLocation}"></option>
+                                </select>
+                            </div>
+                            <br>
+                             <div class="form-group">
+                                <label for="salary">Minimum Salary</label><br><br>
+                                    <input type="text" class="form-control mr-3" id="minSalary" th:name="minSalary"  placeholder="Min Salary (e.g. $5,000)">
+                            </div>
+						    <br>
+						    
+						<div style="float:right">
+							<button class="btn btn-primary" type="button" disabled id="loader" style="display: none;">
+								<span class="spinner-border spinner-border-sm" role="status"
+									aria-hidden="true"></span> Searching
+							</button>
+							<button type="submit" class="btn btn-primary" id="submit-btn">Search</button>
+						</div>
+					</form>
+				</div>
+
+                
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fa fa-align-left"></i>
+                        <span>Filter Jobs</span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa fa-align-justify"></i>
+                    </button>
+							<form th:action ="@{/jobPostFilterByDate}" method="post" id="searchWithDate" class="form-inline my-2 my-lg-0">
+								<label for="inputEmail3" class="mr-sm-2">Uploaded Posts By</label>
+								<div>
+										<select name="searchPostsWithDate" class="form-control mr-sm-2">
+											<option value="7" selected>1 Week ago</option>
+											<option value="14">2 Weeks ago</option>
+											<option value="21">3 Weeks ago</option>
+											<option value="30">1 Month ago</option>
+											<option value="60">2 Months ago</option>
+										</select>
+								</div>
+								<button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+							</form>
+                </div>
+            </nav>
+            
+         <div class="container text-center">
+            <h3 class="text-center">Uploaded Posts</h3>
+            <div class="vertical-space-30"></div>
+            Number of Posts: <span th:text="${noOfPosts}"></span> post(s)
+            <div class="vertical-space-60"></div>
+            
+            <div th:replace="common/master :: jobPost" />
+            
+            <div class="vertical-space-20"></div>
+            <div class="job-list" th:if="${totalPages!=0}">
+                <!-- <a href="#" class="Open-Jobs-Page margin-auto">Open Jobs Page<i class="large material-icons float-right">trending_flat</i></a> -->
+                <ul class="pagination justify-content-end margin-auto">
+                    <li class="page-item" th:if="${hasPrevious}"><a class="page-link pdding-none" th:href="@{/}+${url}+@{?pageNo=}+${currentPage-1}"><i class=" material-icons keyboard_arrow_left_right">keyboard_arrow_left</i></a></li>
+                    <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages, 1)}"><a class="page-link" th:classappend="${currentPage==i}? 'active'" th:href="@{/}+${url}+@{?pageNo=}+${i}" th:text="${i}"></a></li>
+                    <li class="page-item" th:if="${hasNext}">
+                        <a class="page-link pdding-none" th:href="@{/}+${url}+@{?pageNo=}+${currentPage+1}"> <i class=" material-icons keyboard_arrow_left_right">keyboard_arrow_right</i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+            
+        </div>
+    </div>
+    </section>
+    
+    <footer th:replace="common/master :: footer" />
+    
+    <div th:replace="common/master :: common-script" />
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        function deletePost(id){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                    )
+                    window.location="/deletePost/"+id;
+                }
+            })
+        }
+
+        
+        function success(){
+        	$('#submit-btn').show();
+        	$('#loader').hide();
+            swal("Good Luck!", "Email successfully Sent!", "success");
+        }	
+        
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+            
+        });
+
+    </script>
+    
+</body>
+
+</html>

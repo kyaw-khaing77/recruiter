@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" th:href="@{css/bootstrap.min.css}">
+
+<link th:href="@{font-awesome-4.7.0/css/font-awesome.min.css}"
+	rel="stylesheet" type="text/css">
+
+<link th:href="@{css/matrialize.css}" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link rel="stylesheet" th:href="@{css/style.css}">
+</head>
+<body>
+	<div class="container p-3 my-3">
+		<div class="jumbotron .col-md-6 .col-md-offset-3">
+			<p>
+				Hello <span th:text="${companyName}"></span>,
+			</p>
+			<p style="text-indent: 50px;"><span th:text="${contentAboutJob}"></span></p>
+			<p style="text-indent: 50px;"><span th:text="${contentAboutCompany}"></span></p>
+			<br />
+			<hr />
+			<div class="text-right">
+				<p>Sincerely,</p>
+				<address>
+					<strong><span th:text="${userName}"></span></strong><br>
+					 <a href="mailto:#"><span th:text="${userEmail}"></span></a><br>
+					<abbr title="Phone">Phone:</abbr><span th:text="${userPhone}"></span><br>
+					 <span th:text="${userAddress}"></span>
+					<br>
+				</address>
+
+			</div>
+
+		</div>
+	</div>
+
+	<script th:src="@{js/jquery.min.js}"></script>
+	<script th:src="@{js/popper.min.js}"></script>
+	<script th:src="@{js/bootstrap.min.js}"></script>
+
+</body>
+</html>

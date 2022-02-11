@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="eng" xmlns:th="http://www.w3.org/1000/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+
+<head th:replace="common/master :: header" />
+<body>
+    
+    <head th:replace="common/master :: common-header" />
+    
+    <section id="intro">
+        <div class="carousel-item active">
+            <div class="carousel-background"><img src="imags/slider/slider1.jpg" alt=""></div>
+            <div class="carousel-container">
+                <div class="carousel-content">
+                    <h2 class="font-color-white">Find Jobs Now more Easy Way</h2>
+                    <p class="font-color-white">To a Brighter Future, Better Opportunities, Join With Us on Recruiter</p>
+                    <a href="#" data-toggle="modal" data-target="#myModal"><i class=" material-icons play">play_arrow</i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <div id="search-box">
+        <div class="container search-box">
+            <form th:action="@{/searchPostWithCategoryAndLocation}" method="post" id="search-box_search_form_3" class="search-box_search_form d-flex flex-lg-row flex-column align-items-center justify-content-between ">
+                <div class="d-flex flex-row align-items-center justify-content-start inline-block">
+                    <span class="large material-icons search">search</span>
+                    <input class="search-box_search_input" placeholder="Search Keyword" name="jobName" type="search">
+                    <select class="dropdown_item_select search-box_search_input"  th:name="jobCategory">
+                            <option value="allJobCategory" selected="selected">Search by Job Category</option>
+                            <option th:each="jobCategory : ${jobCategoriesList}" th:text="${jobCategory}"></option>
+                    </select>
+                    <span class="large material-icons search">place</span>
+                    <select class="dropdown_item_select search-box_search_input"  th:name="jobLocation">
+                          <option value="allLocation" selected="selected">Search by Job Location</option>
+                          <option th:each="jobLocation : ${jobLocationsList}" th:text="${jobLocation}"></option>                       
+                    </select>
+                </div>
+                <button type="submit" class="search-box_search_button">Search Jobs</button>
+            </form>
+        </div>
+    </div>
+    
+    
+    <section id="Job-Category">
+        <div class="container">
+            <h3 class="text-center">Choose Job Category</h3>
+            <div class="vertical-space-30"></div>
+            <p class="max-width">Administrative, Architecture, Design, Education, Teaching, IT Hardware, Software, HR, Management, Medical, Supply Chain, Research and Development, Translation, Others
+            </p>
+            <div class="vertical-space-60"> </div>
+            <div class="row">
+           
+            
+	                <div class="col-lg-3 col-md-6 max-width-50" th:each="post : ${mostAppliedJobLists}">
+	                    <div class="box background-color-white-light">
+	                        <div class="circle">
+	                            <img src="imags/icone/service-icone-1.png" alt="">
+	                        </div>
+	                        <h6 th:text="${post.key}"></h6>
+	                         <a th:href="@{/getPostsByCategory/}+${post.key}" class="button job_post" data-hover="View Jobs" data-active="I'M ACTIVE"><span th:text="${post.value}"></span></a>
+
+	                    </div>
+	                </div>
+	                
+	  
+            <div class="vertical-space-40"></div>
+            <a th:href="@{/getPostCountByCategory}" class="Brows-All-Category">Browse All Category</a>
+        </div>
+        </div>
+        <div class="vertical-space-85"></div>
+    </section>
+    
+    
+    <section id="resent-job-post" class="background-color-white">
+        <div class="vertical-space-85"></div>
+        <div class="container text-center">
+            <h3 class="text-center">Recent Job Post</h3>
+            <div class="vertical-space-30"></div>
+            <p class="max-width">Explore Job Posts on Our Jobs Page.
+            </p>
+            <div class="vertical-space-60"></div>
+            <div th:replace="common/master :: jobPost" />
+            <div class="vertical-space-20"></div>
+            <div class="job-list">
+                <a th:href="@{/allJobs}" class="Open-Jobs-Page margin-auto">Open Jobs Page<i class="large material-icons float-right">trending_flat</i></a>
+            </div>
+        </div>
+        <div class="vertical-space-60"></div>
+    </section>
+    
+    
+    <section id="Featuread-Company">
+        <div class="vertical-space-85"></div>
+        <div class="container text-center">
+            <h3 class="text-center">Featuread Company</h3>
+            <div class="vertical-space-30"></div>
+            <p class="max-width">These are the Featured Companies on the Recruiter.
+            </p>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="owl-carousel Featuread-Company-carousel">
+                        <a href="#" class="Featuread-Company-item">
+                            <div class="media text-align-center  media1">
+                                <img src="imags/job-post-icone-3.png" alt="John Doe" class=" Featuread-Company-img margin-auto">
+                                <div class="media-body text-left text-align-center ">
+                                    <h6>Mshape Themes Limited.</h6>
+                                    <i class="material-icons">account_balance</i>
+                                    <span class="text">Mshape inc.</span>
+                                    <br />
+                                    <i class=" material-icons">place</i>
+                                    <span class="text font-size">11907 Doyle Cape Cydneyview</span>
+                                    <br />
+                                    <i class=" material-icons">person</i>
+                                    <span class="text font-size font-color-orange">3 Open Position</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="Featuread-Company-item">
+                            <div class="media  text-align-center  media1">
+                                <img src="imags/job-post-icone-4.png" alt="John Doe" class="margin-auto Featuread-Company-img">
+                                <div class="media-body text-left text-align-center">
+                                    <h6>Scalegoss Limited.</h6>
+                                    <i class="material-icons">account_balance</i>
+                                    <span class="text">Scalegoss inc.</span>
+                                    <br />
+                                    <i class=" material-icons">place</i>
+                                    <span class="text font-size">11907 Doyle Cape Cydneyview</span>
+                                    <br />
+                                    <i class=" material-icons">person</i>
+                                    <span class="text font-size font-color-orange">3 Open Position</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="Featuread-Company-item">
+                            <div class="media text-align-center   media1">
+                                <img src="imags/job-post-icone-1.png" alt="John Doe" class=" Featuread-Company-img margin-auto">
+                                <div class="media-body text-left text-align-center">
+                                    <h6>Jopitar Themes Limited.</h6>
+                                    <i class="material-icons">account_balance</i>
+                                    <span class="text">Jopitar inc.</span>
+                                    <br />
+                                    <i class=" material-icons">place</i>
+                                    <span class="text font-size">11907 Doyle Cape Cydneyview</span>
+                                    <br />
+                                    <i class=" material-icons">person</i>
+                                    <span class="text font-size font-color-orange">3 Open Position</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="Featuread-Company-item">
+                            <div class="media   text-align-center media1">
+                                <img src="imags/job-post-icone-5.png" alt="John Doe" class=" Featuread-Company-img margin-auto">
+                                <div class="media-body text-left text-align-center">
+                                    <h6>Supwin Themes Limited.</h6>
+                                    <i class="material-icons">account_balance</i>
+                                    <span class="text">Supwin inc.</span>
+                                    <br />
+                                    <i class=" material-icons">place</i>
+                                    <span class="text font-size">11907 Doyle Cape Cydneyview</span>
+                                    <br />
+                                    <i class=" material-icons">person</i>
+                                    <span class="text font-size font-color-orange">3 Open Position</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="Featuread-Company-item">
+                            <div class="media text-align-center   media1">
+                                <img src="imags/job-post-icone-3.png" alt="John Doe" class=" Featuread-Company-img margin-auto">
+                                <div class="media-body text-left text-align-center">
+                                    <h6>Mshape Themes Limited.</h6>
+                                    <i class="material-icons">account_balance</i>
+                                    <span class="text">Mshape inc.</span>
+                                    <br />
+                                    <i class=" material-icons">place</i>
+                                    <span class="text font-size">11907 Doyle Cape Cydneyview</span>
+                                    <br />
+                                    <i class=" material-icons">person</i>
+                                    <span class="text font-size font-color-orange">3 Open Position</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="Featuread-Company-item">
+                            <div class="media  text-align-center  media1">
+                                <img src="imags/job-post-icone-4.png" alt="John Doe" class=" Featuread-Company-img margin-auto">
+                                <div class="media-body text-left text-align-center">
+                                    <h6>Scalegoss Themes Limited.</h6>
+                                    <i class="material-icons">account_balance</i>
+                                    <span class="text">Scalegoss inc.</span>
+                                    <br />
+                                    <i class=" material-icons">place</i>
+                                    <span class="text font-size">11907 Doyle Cape Cydneyview</span>
+                                    <br />
+                                    <i class=" material-icons">person</i>
+                                    <span class="text font-size font-color-orange">3 Open Position</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="Featuread-Company-item">
+                            <div class="media  text-align-center  media1">
+                                <img src="imags/job-post-icone-3.png" alt="John Doe" class=" Featuread-Company-img margin-auto">
+                                <div class="media-body text-left text-align-center">
+                                    <h6>Mshape Themes Limited.</h6>
+                                    <i class="material-icons">account_balance</i>
+                                    <span class="text">Mshape inc.</span>
+                                    <br />
+                                    <i class=" material-icons">place</i>
+                                    <span class="text font-size">11907 Doyle Cape Cydneyview</span>
+                                    <br />
+                                    <i class=" material-icons">person</i>
+                                    <span class="text font-size font-color-orange">3 Open Position</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="Featuread-Company-item">
+                            <div class="media  text-align-center  media1">
+                                <img src="imags/job-post-icone-4.png" alt="John Doe" class=" Featuread-Company-img margin-auto">
+                                <div class="media-body text-left text-align-center">
+                                    <h6>Scalegoss Themes Limited.</h6>
+                                    <i class="material-icons">account_balance</i>
+                                    <span class="text">Scalegoss inc.</span>
+                                    <br />
+                                    <i class=" material-icons">place</i>
+                                    <span class="text font-size">11907 Doyle Cape Cydneyview</span>
+                                    <br />
+                                    <i class=" material-icons">person</i>
+                                    <span class="text font-size font-color-orange">3 Open Position</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="Featuread-Company-item">
+                            <div class="media  text-align-center  media1">
+                                <img src="imags/job-post-icone-1.png" alt="John Doe" class=" Featuread-Company-img margin-auto">
+                                <div class="media-body text-left text-align-center">
+                                    <h6>Jopitar Themes Limited.</h6>
+                                    <i class="material-icons">account_balance</i>
+                                    <span class="text">Jopitar inc.</span>
+                                    <br />
+                                    <i class=" material-icons">place</i>
+                                    <span class="text font-size">11907 Doyle Cape Cydneyview</span>
+                                    <br />
+                                    <i class=" material-icons">person</i>
+                                    <span class="text font-size font-color-orange">3 Open Position</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="Featuread-Company-item">
+                            <div class="media  text-align-center  media1">
+                                <img src="imags/job-post-icone-5.png" alt="John Doe" class=" Featuread-Company-img margin-auto">
+                                <div class="media-body text-left text-align-center">
+                                    <h6>Supwin Themes Limited.</h6>
+                                    <i class="material-icons">account_balance</i>
+                                    <span class="text">Supwin inc.</span>
+                                    <br />
+                                    <i class=" material-icons">place</i>
+                                    <span class="text font-size">11907 Doyle Cape Cydneyview</span>
+                                    <br />
+                                    <i class=" material-icons">person</i>
+                                    <span class="text font-size font-color-orange">3 Open Position</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="Featuread-Company-item">
+                            <div class="media  text-align-center  media1">
+                                <img src="imags/job-post-icone-3.png" alt="John Doe" class=" Featuread-Company-img margin-auto">
+                                <div class="media-body text-left text-align-center">
+                                    <h6>Mshape Themes Limited.</h6>
+                                    <i class="material-icons">account_balance</i>
+                                    <span class="text">Mshape inc.</span>
+                                    <br />
+                                    <i class=" material-icons">place</i>
+                                    <span class="text font-size">11907 Doyle Cape Cydneyview</span>
+                                    <br />
+                                    <i class=" material-icons">person</i>
+                                    <span class="text font-size font-color-orange">3 Open Position</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="vertical-space-85"></div>
+        </div>
+    </section>
+    
+    
+    <section id="Jobtend">
+        <div class="container">
+            <div class="vertical-space-85"></div>
+            <div class="row">
+                <div class="col-lg-9 col-md-6  align-self-center">
+                    <h3 class="title">Recruiter - Best Place to Find Jobs & Employee</h3>
+                    <div class="vertical-space-30"></div>
+                    <p class="max-width">Connecting you with Top Employers
+                    </p>
+                    <div class="vertical-space-30"></div>
+                    <h4>Why we are best</h4>
+                    <div class="vertical-space-30"></div>
+                    <ul>
+                        <li class="list-item1 ">Find the Right Job
+                            <br /> Search or get recommendations for jobs that match what you're looking for.
+                        </li>
+                        <li class="list-item1 ">Create a profile, get it to a 100% and immediately get noticed by the right recruiters.</li>
+                    </ul>
+                    <div class="vertical-space-30"></div>
+                    <a href="#" class="Explore-Employee">Explore Employee</a>
+                    <a href="#" class="Explore-New-Jobs">Explore New Jobs</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <img src="imags/man.png" alt="" class="man-img">
+                </div>
+                <div class="vertical-space-60"></div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <section id="Clients-Testimonial">
+        <div class="vertical-space-85"></div>
+        <div class="container">
+            <h3 class="text-center">Our Members</h3>
+            <div class="vertical-space-30"></div>
+            <p class="max-width">
+            </p>
+            <div class="vertical-space-60"></div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="owl-carousel Clients-Testimonial-carousel">
+                    <div class="Clients-Testimonial-item">
+                        <div class="testimonial">
+                            <h3 class="testimonial-title">Khin Me Me Latt</h3>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <p class="description">Payment for Job Posts, Company can Create and Update their own Posts. They can also see their uploaded posts and its status. End-User can find all Job Posts and its details.</p>
+                            <div class="pic">
+                                <img src="imags/KMM.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Clients-Testimonial-item">
+                        <div class="testimonial">
+                            <h3 class="testimonial-title">Kyaw Kyaw Khaing</h3>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <p class="description">Job Apply, Approve Job, Reply(By Email, by Website), Search(Category, title, Location, Country, Money)</p>
+                            <div class="pic">
+                                <img src="imags/kkk.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Clients-Testimonial-item">
+                        <div class="testimonial">
+                            <h3 class="testimonial-title">Shwe Yee Thet Htar</h3>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <p class="description">Admin - Approve Post, Delete Post, AccountControll(Delete), Monitoring UI</p>
+                            <div class="pic"> 
+                                <img src="imags/shweyth.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Clients-Testimonial-item">
+                        <div class="testimonial">
+                            <h3 class="testimonial-title">Thiri Yadanar Aung</h3>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <p class="description">Company Information (Create, Update, Payment)</p>
+                            <div class="pic">
+                                <img src="imags/thiri.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Clients-Testimonial-item">
+                        <div class="testimonial">
+                            <h3 class="testimonial-title">Thaw Myo Htet</h3>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <i class="material-icons star">star</i>
+                            <p class="description">User Information (Create, Update)</p>
+                            <div class="pic">
+                                <img src="imags/tmh.png" alt="">
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="vertical-space-85"></div>
+        </div>
+    </section>
+    
+    
+    <footer th:replace="common/master :: footer" />
+    
+    
+    <div class="modal" id="myModal">
+        <div class="container">
+            <div class="vertical-space-85"></div>
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    
+                    <div class="modal-body">
+                        <button class="button button-rounded  close" data-dismiss="modal">&times;</button>
+                        <video class="" controls>
+                            <source src="video/Pexels_Videos_2706.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div th:replace="common/master :: common-script" />
+</body>
+
+</html>

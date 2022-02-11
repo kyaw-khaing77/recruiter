@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="eng" xmlns:th="http://www.w3.org/1000/xhtml">
+
+<head th:replace="common/master :: header" />
+
+<body th:onload="${emailSuccess}? 'success()'" >
+<head th:replace="common/master :: common-header" />
+
+<section id="file_upload">
+	<div class="container"></div>
+
+</section>
+
+<section id="file_upload ">
+
+	<div class="container" >
+	    <div class="vertical-space-100"></div>
+		<div class="vertical-space-101"></div>
+		<div class="col-md-6 offset-md-3">
+		
+		<!-- style="background-image: url('https://mdbootstrap.com/img/Photos/new-templates/glassmorphism-article/img5.jpg');" -->
+			<div class="card">
+				<div class="card-header" style="background-color: #F26522;color: white;text-align:center;">
+					<p>Reply User</p>
+				</div>
+				<div class="card-body">
+					<form th:action="@{/interviewInvitaionToUser/}+${postId}+'/'+${user.userId}" method="post" enctype="multipart/form-data" id="applyJob">
+
+						<div class="form-outline mb-4">
+							<input type="text" id="userName" class="form-control" name="userName" th:value="${user.username}" disabled="disabled"/>
+							 <label class="form-label" for="userName">User name</label>
+						</div>
+						<div class="form-outline mb-4">
+							<input type="email" id="userEmail" name="userEmail" class="form-control" th:value="${user.email}" disabled="disabled"/> 
+							<label class="form-label" for="userEmail">User Email</label>
+						</div>
+						<div class="form-outline mb-4">
+							<input type="text" id="emailSubject" name="emailSubject" class="form-control"/>
+							 <label class="form-label" for="emailSubject">Your Email Subject</label>
+						</div>
+						
+						<div >
+						    <label class="form-label" for="interviewTime" style="text:red;">Interview Time</label>
+							<input type="datetime-local" id="interviewTime" name="interviewTime" class="form-control" required="required"/>	
+						</div>
+                         <br><br>
+
+                        <div class="form-outline mb-4">
+							<input type="text" id="interviewLocation" name="interviewLocation" class="form-control"/>
+							 <label class="form-label" for="interviewLocation">Interview Location</label>
+						</div>
+						
+
+						<div class="form-outline mb-4">
+							<textarea class="form-control" id="emailContent1" rows="4" name="emailContent1"></textarea>
+							<label class="form-label" for="emailContent1">Why Do You Want To Interview This User?</label>
+						</div>
+						<div class="form-outline mb-4">
+							<textarea class="form-control" id="emailContent2" rows="4" name="emailContent2"></textarea>
+							<label class="form-label" for="emailContent2">What Do You Want To Talk More?</label>
+						</div>
+						<div style="float:right">
+							<button class="btn btn-primary" type="button" disabled id="loader" style="display: none;">
+								<span class="spinner-border spinner-border-sm" role="status"
+									aria-hidden="true"></span> Send Email...
+							</button>
+							<button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+</section>
+
+
+<br>
+<br>
+<head th:replace="common/master :: footer" />
+
+<head th:replace="common/master :: common-script" />
+
+<script>
+$('#applyJob').on('submit',function(event){
+		
+	$('#submit-btn').hide();
+	$('#loader').show();
+	
+}); 	
+	
+function success(){
+	$('#submit-btn').show();
+	$('#loader').hide();
+    swal("Good Luck!", "Email successfully Sent!", "success"), function(){
+        window.location.href = "/viewPosts";
+    }
+}	
+
+
+</script>
+
+
+</body>
+</html>

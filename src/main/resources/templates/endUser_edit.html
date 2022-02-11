@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="eng" xmlns:th="http://www.w3.org/1000/xhtml">
+
+<head th:replace="common/master :: header" />
+
+<body class="background-color-white"th:onload="${updateSuccess}? 'success()'" >
+<head th:replace="common/master :: common-header" />
+
+<section id="post_job">
+	<div class="vertical-space-100"></div>
+	<div class="vertical-space-101"></div>
+	<div class="container">
+		<div class="list-box">
+			<a href="#" class="font-color-black margin-right">Job </a> > <a
+				href="#" class="font-color-orange margin-left"> Sign Up</a>
+		</div>
+		<a href="#" class="Save">Save</a>
+		<div class="vertical-space-60"></div>
+		<div class="job-post-box">
+			<div class="alert alert-danger" th:if="${incorrectPassword}">
+				<strong>Incorrect Password!</strong>
+				 Please enter the correct password for the current user.
+			</div>
+	       <div class="alert alert-danger" th:if="${usernameExists}">
+				<strong>Username already exists!</strong>
+				 Please enter the different name for the current user.
+		  </div>	
+		  <div class="alert alert-danger" th:if="${emailExists}">
+			   <strong>Email already exists!</strong>
+			    Please enter the different email for the current user.
+		 </div>
+			<div class="alert alert-succss" th:if="${updateSuccess}">
+				<strong>Update Success!</strong>
+			</div>
+
+
+			<form th:action="@{/updateEndUserInfo}" method="post" enctype="multipart/form-data" id="endUserUpdateForm">
+				<div class="bg-info" th:if="${updateUserInfo}">User info updated.</div>
+				<input type="hidden" name="endUserId"  th:value="${endUser.endUserId}"/>
+				<input type="hidden" name="userId"  th:value="${userId}"/>
+		    	<div class="row">
+					<div class="col-lg-6 col-md-6">
+						<div class="form-group">
+				    	<label for="firstName">First Name</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="First Name"  name="firstName" th:value="${endUser.firstName}"/>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6">
+						<div class="form-group">
+							<label for="lastName">Last Name</label> 
+							<input type="text" class="form-control" id="lastName" placeholder="Last Name" name="lastName" th:value="${endUser.lastName}"/>
+						</div>
+					</div>
+				</div>
+				
+
+				<div class="row">
+					<div class="col-lg-6 col-md-6">
+						<div class="form-group">
+				    	<label for="username">Your Name</label>
+				    	<input type="text" class="form-control" id="username" placeholder="Full name" name="username" th:value="${username}"/>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6">
+						<div class="form-group">
+							<label for="email">Email</label>
+							 <input type="email" class="form-control" id="email" placeholder="Email" name="email" th:value="${email}"/>
+						</div>
+					</div>
+				</div>
+						
+				
+				<div class="row">
+					<div class="col-lg-4 col-md-4">
+						<div class="form-group">
+							<label for="currentPassword">Current Password</label>
+							<input type="password" class="form-control" id="currentPassword" name="password" />
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4">
+					   <div class="form-group">
+							<label for="txtNewPassword">New Password</label>
+							<input type="password" class="form-control" id="txtNewPassword" name="newPassword" />
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4">
+					   <div class="form-group">
+							<label for="txtConfirmPassword">Confirm Password</label>
+							<input type="password" class="form-control" id="txtConfirmPassword" name="newPassword" />
+						</div>
+					</div>
+				</div>		
+
+				<div class="row">
+					<div class="col-lg-4 col-md-4">
+						<div class="form-group">
+							<label for="phone">Phone</label> 
+							<input type="text" class="form-control" id="phone" placeholder="Phone No" name="phone" th:value="${endUser.phone}"/>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4">
+						<label for="gender">Select Gender</label>
+						 <select class="form-control" id="gender" name="gender">
+							<option value="Male">Male</option>
+							<option value="Female">Female</option>
+						</select>
+					</div>
+					<div class="col-lg-4 col-md-4">
+					   <div class="form-group">
+							<label for="age">Age</label>
+							<input type="number" class="form-control" id="age" name="age" min="15" max="50" th:value="${endUser.age}">
+						</div>	
+					</div>
+					
+				</div>
+				
+				<div class="row">
+					<div class="col-lg-6 col-md-6">
+						<div class="form-group">
+				    	<label for="websiteUrl">Website Url</label>
+                        <input type="text" class="form-control" id="websiteUrl" placeholder="Your Website Url"  name="websiteUrl" th:value="${endUser.websiteUrl}"/>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6">
+						<div class="form-group">
+							<label for="linkedIn">LinkedIn</label> 
+							<input type="text" class="form-control" id="linkedIn" placeholder="LinkedIn Link" name="linkedIn" th:value="${endUser.linkedIn}"/>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="education">Education Background</label>
+					<textarea class="form-control small" id="address"
+						placeholder="Write your Education Background" rows="3" name="education" th:value="${endUser.education}"></textarea>
+				</div>
+				
+				<div class="form-group">
+					<label for="bio">Bio</label>
+					<textarea class="form-control small" id="bio"
+						placeholder="Write your bio" rows="3" name="bio" th:value="${endUser.bio}"></textarea>
+				</div>
+				
+				<div class="form-group">
+					<label for="address">Address</label>
+					<textarea class="form-control small" id="address"
+						placeholder="Write your company address" rows="3" name="address" th:value="${endUser.address}"></textarea>
+				</div>
+
+				<div class="row">
+						<div class="form-group">
+							<label>Your Photo</label>
+							<div class="box text-center">
+								<input type="file" id="file-5" class="inputfile inputfile-4" name="userPicture"/>
+								<label for="file-5">
+								 <i> <img src="imags/job-post.png" class="imtges" alt="">
+								</i> <span>Drop your pic here, or <i class="font-color-orange">Browse</i></span>
+								</label>
+							</div>
+						</div>
+				</div>
+				<div style="float:right">
+							<button class="btn btn-primary" type="button" disabled id="loader" style="display: none;">
+								<span class="spinner-border spinner-border-sm" role="status"
+									aria-hidden="true"></span> Updating
+							</button>
+							<button type="submit" class="btn btn-primary" id="submit-btn">Update</button>
+				 </div>
+			</form>
+		</div>
+	</div>
+</section>
+
+<footer th:replace="common/master :: footer" />
+
+<div th:replace="common/master :: common-script" />
+
+ <script>
+ 
+ 
+ $('#endUserUpdateForm').on('submit',function(event){
+		
+		$('#submit-btn').hide();
+		$('#loader').show();
+		
+	}); 
+ 
+        function success(){
+        	$('#submit-btn').show();
+        	$('#loader').hide();
+            swal("Success!", "Update Info Success!", "success");
+        }	
+        
+  </script>  
+
+</body>
+
+</html>

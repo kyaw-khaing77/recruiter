@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="eng" xmlns:th="http://www.w3.org/1000/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="header">
+
+<meta charset="utf-8">
+<meta name="author" content="">
+<meta name="description" content="">
+<meta name="keywords" content="HTML,CSS,XML,JavaScript">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Recruiter</title>
+
+<link rel="apple-touch-icon" th:href="@{/images/apple-touch-icon.html}">
+<link rel="shortcut icon" type="image/ico" th:href="@{/images/favicon.html}" />
+
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    
+    <link th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+    
+    <link th:href="@{/css/matrialize.css}" rel="stylesheet">
+    
+    <link th:href="@{/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui.min.css}">
+    
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <link rel="stylesheet" th:href="@{/css/animations.css}">
+
+    <link rel="stylesheet" th:href="@{/css/custom-radio-button.css}">
+
+<link rel="stylesheet" th:href="@{/css/mycss.css}">
+
+</head>
+<body>
+	<header class="header" th:fragment="common-header">
+		<div class="top_bar background-color-orange">
+			<div class="top_bar_container">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div
+								class="top_bar_content d-flex flex-row align-items-center justify-content-start">
+								<ul class="top_bar_contact_list">
+									<li><i class="fa fa-phone coll" aria-hidden="true"></i>
+										<div class="contact-no">0123 4567 8912</div></li>
+									<li><i class="fa fa-envelope coll" aria-hidden="true"></i>
+										<div class="email">
+											<a
+												th:href="@{https://demo.technosarjan.com/cdn-cgi/l/email-protection}"
+												class="__cf_email__"
+												data-cfemail="c3a6bba2aeb3afa683a9aca1b7a6ada7eda0acae">[email&#160;protected]</a>
+										</div></li>
+								</ul>
+								<div class=" ml-auto ">
+									<div class="search_button search">
+										<i class="large material-icons search-icone">search</i>
+									</div>
+									<div
+										class="hamburger menu_mm  search_button transparent search display">
+										<i
+											class="large material-icons font-color-white  search-icone  menu_mm ">menu</i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="header_container background-color-orange-light">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div
+							class="header_content d-flex flex-row align-items-center justify-content-start">
+							<div class="logo_container">
+								<a th:href="@{index.html}"> <img th:src="@{imags/logo.png}"
+									class="logo-text" alt="">
+								</a>
+							</div>
+							<nav class="main_nav_contaner ml-auto">
+								<ul class="main_nav">
+									<li class="dropdown active "><a class="dropdown-toggle"
+										data-toggle="dropdown" href="#">Home <span class="caret"></span></a>
+										<ul class="dropdown-menu">
+											<li><a href="index.html">Home variation 1</a></li>
+											<li><a href="index2.html">Home variation 2</a></li>
+										</ul></li>
+									<li class="dropdown "><a class="dropdown-toggle"
+										data-toggle="dropdown" href="#">Job <span class="caret"></span></a>
+										<ul class="dropdown-menu">
+											<li><a th:href="job_category.html">Job List</a></li>
+											<li><a th:href="job_detail.html">Job Detail</a></li>
+										</ul></li>
+					            	<li><a sec:authorize="isAnonymous()" th:href="@{/login}">Log In</a></li>
+					            	<li><a sec:authorize="isAnonymous()" th:href="@{/userRegister}">Account Create</a></li>
+						            <li><a sec:authorize="isAuthenticated()" th:href="@{/myProfile}">My Profile</a></li>
+						            <li><a th:href="@{/about}">About Recruiter</a></li>
+						             <li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">LogOut</a></li>
+						             <li><a sec:authorize="isAuthenticated()" th:href="@{/updateUser}">Edit</a></li>
+									<li class="dropdown" sec:authorize="hasAnyAuthority('ROLE_COMPANY')">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-building fa-2x" aria-hidden="true"></i>
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a th:href="@{/viewPosts}">View Uploaded Posts</a></li>
+                                        </ul>
+                                    </li>
+									<li class="dropdown ">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a th:href="@{/newUser}">Sign Up</a></li>
+                                            <li><a th:href="@{/login}">LogIn</a></li>
+                                            <li><a sec:authorize="hasAnyAuthority('ROLE_COMPANY')" th:href="@{/companyAccount}">My Account</a></li>
+                                            <li><a sec:authorize="hasAnyAuthority('ROLE_END_USER')" th:href="@{/updateUser}">My Account</a></li>
+                                            <li><a sec:authorize="hasAnyAuthority('ROLE_COMPANY')" th:href="@{/payment}">My Payment</a></li>
+                                        </ul>
+                                    </li>
+								</ul>
+								<div class=" Post-Jobs" sec:authorize="hasAnyAuthority('ROLE_COMPANY')">		
+									<a th:href="@{/postJob}" class=""> Post Jobs </a>
+								</div>
+								<div class="hamburger menu_mm menu-vertical">
+									<i
+										class="large material-icons font-color-white menu_mm menu-vertical">menu</i>
+								</div>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div
+			class="menu d-flex flex-column align-items-end justify-content-start text-right menu_mm trans_400">
+			<div class="menu_close_container">
+				<div class="menu_close">
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+			<div class="search">
+				<form action="#" class="header_search_form menu_mm">
+					<input type="search" class="search_input menu_mm"
+						placeholder="Search" required="required">
+					<button
+						class="header_search_button d-flex flex-column align-items-center justify-content-center menu_mm">
+						<i class="fa fa-search menu_mm" aria-hidden="true"></i>
+					</button>
+				</form>
+			</div>
+			<nav class="menu_nav">
+				<ul class="menu_mm">
+					<li class="dropdown menu_mm"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">Home <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="index.html">Home 1</a></li>
+							<li><a href="index2.html">Home 2</a></li>
+						</ul></li>
+					<li class="dropdown menu_mm"><a
+						class="dropdown-toggle menu_mm" data-toggle="dropdown" href="#">Job
+					</a>
+						<ul class="dropdown-menu menu_mm">
+							<li class="menu_mm"><a href="job_category.html">Job List</a></li>
+							<li class="menu_mm"><a href="job_detail.html">Job Detail</a></li>
+						</ul></li>
+					    <li><a sec:authorize="isAnonymous()" th:href="@{/login}">Log In</a></li>
+					    <li><a sec:authorize="isAnonymous()" th:href="@{/userRegister}">Account Create</a></li>
+						<li><a sec:authorize="isAuthenticated()" th:href="@{/myProfile}">My Profile</a></li>
+						<li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">LogOut</a></li>
+						<li><a sec:authorize="isAuthenticated()" th:href="@{/updateUser}">Edit</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<div class="detail" th:each="post : ${listOfPosts}" th:fragment="jobPost">
+		<input type="hidden" id="postId" th:value="${post.postId}">
+		<div class="media display-inline text-align-center">
+			<!-- <img src="imags/job-post-icone-1.png" alt="John Doe" class="mr-3 "> -->
+			<div class="media-body text-left  text-align-center">
+				<h6 th:text="${post.jobTitle}"></h6>
+				<i class="fa fa-clock-o" aria-hidden="true"></i>
+				<span class="text" th:text="${post.jobType}"></span>
+				<br />
+				<i class="fa fa-user text-primary" aria-hidden="true"></i>
+				<span class="text" th:text="${post.employeeLimit}"></span> applicant(s)
+				<br />
+			  <i class="fa fa-usd text-warning" aria-hidden="true"></i>
+				   
+				<span th:if="${post.minSalary gt 0 and post.maxSalary gt 0}">
+					$<span class="text font-size" th:text="${post.minSalary}"></span> ~
+					$<span class="text font-size" th:text="${post.maxSalary}"></span>
+				</span>
+				<span th:if="${post.minSalary == null and post.maxSalary == null}">
+					Negotiable
+				</span>
+				<div class="float-right margin-top text-align-center">
+					<a th:onclick="'deletePost(\'' + ${post.postId} + '\');'" class="btn btn-danger" sec:authorize="hasAnyAuthority('ROLE_COMPANY')">Delete</a>
+					
+					<a th:href="@{/updatePost/}+${post.postId}" class="btn btn-info" sec:authorize="hasAnyAuthority('ROLE_COMPANY')">Update</a>
+					
+				   <a th:href="@{/jobApply/}+${post.postId}" class="btn btn-info" sec:authorize="hasAnyAuthority('ROLE_END_USER')">Job Apply</a>
+				   
+					<a th:href="@{/jobApplyUsers/}+${post.postId}" class="btn btn-info" sec:authorize="hasAnyAuthority('ROLE_COMPANY')">View user</a>
+					
+				   <a th:href="@{/jobPostDetails/}+${post.postId}" class="btn btn-info">View Details</a>
+
+					<div>status: 
+						<span th:if="${post.status}" class="text-success">Approved</span>
+						<span th:if="!${post.status}" class="text-warning">Pending</span>
+					</div> 
+					<p class="date-time">Deadline: <span th:text="${post.deadline}"></span></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer th:fragment="footer" id="footer" class="background-color-white">
+		<div class="container">
+			<div class="vertical-space-100"></div>
+			<div class="row">
+				<div class="col-lg-4 col-md-6 vertical-space-2">
+					<h5>About Us</h5>
+					<p class="paregraf">Students of UIT(University of Information Technology) developed together.</p>
+					<a href="#"> <i class="fa fa-facebook social-icon"></i></a> <a
+						href="#"> <i class="fa fa-twitter social-icon"></i></a> <a
+						href="#"> <i class="fa fa-pinterest-p social-icon"></i></a> <a
+						href="#"> <i class="fa fa-map-marker social-icon"></i></a>
+				</div>
+				<div class="col-lg-2 col-md-6 vertical-space-2">
+					<h5>Company</h5>
+					<div class="text">
+						<a href="#">About</a> <a href="#">Support</a> <a href="#">Tems</a>
+						<a href="#">Privacy</a>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-6 vertical-space-2">
+					<h5>Supports</h5>
+					<div class="text">
+						<a href="#">About</a> <a href="#">Support</a> <a href="#">Tems</a>
+						<a href="#">Privacy</a>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6 vertical-space-2">
+					<h5>Subscribe Us</h5>
+					<p>Get latest update and newsletter</p>
+					<div class="vertical-space-30"></div>
+					<form>
+						<input type="email" class="email " placeholder="Email Address "
+							required="required"> <span class="fa fa-envelope email-icone "></span>
+						<input type="submit" class="Subscribe" value="Subscribe">
+					</form>
+				</div>
+			</div>
+			<div class="vertical-space-60"></div>
+		</div>
+		<div class="container-fluid background-color-orange main-footer">
+			<div class="container text-center">
+				<div class="vertical-space-30"></div>
+				<p>
+					<a target="_blank" href="#">UIT NttAt Scholarship Students</a>
+				</p>
+			</div>
+		</div>
+	</footer>
+
+
+	<div th:fragment="common-script">
+		<script th:src="@{/js/4n2NXumNjtg5LPp6VXLlDicTUfA.js}"></script>
+		<script th:src="@{/js/email-decode.min.js}"></script>
+		<script th:src="@{/js/jquery.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/owlcarousel/owl.carousel.min.js}"></script>
+		<script th:src="@{/js/jquery-ui.min.js}"></script>
+		<script th:src="@{/js/sweetalert.min.js}"></script>
+		<script th:src="@{/js/custom.js}"></script>
+		<script th:src="@{/js/myjs.js}"></script>
+		<script>
+                (function(e, t, n) {
+                    var r = e.querySelectorAll("html")[0];
+                    r.className = r.className.replace(/(^|\s)no-js(\s|$)/, "$1js$2");
+                })(document, window, 0);
+        </script>
+	</div>
+</body>
+
+</html>
+

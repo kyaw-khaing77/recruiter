@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="eng" xmlns:th="http://www.w3.org/1000/xhtml">
+
+<head th:replace="common/master :: header" />
+
+<body class="background-color-white">
+    
+    <head th:replace="common/master :: common-header" />
+     
+    <section id="post_job">
+        <div class="vertical-space-100"></div>
+        <div class="vertical-space-101"></div>
+        <div class="container">
+            <div class="list-box">
+                <a href="#" class="font-color-black margin-right">Job </a> > <a href="#" class="font-color-orange margin-left"> Sign Up</a>
+            </div>
+            <div class="vertical-space-60"></div>
+            <div class="bg-info text-center" style="height: 50px;" th:if="${companyNameExists}">
+                <span class="text-danger h5">Company Name already exists</span>
+            </div>
+            <div class="alert alert-danger" th:if="${incorrectPassword}">
+				<strong>Incorrect Password!</strong>
+				 Please enter the correct password for the current user.
+			</div>
+	       <div class="alert alert-danger" th:if="${usernameExists}">
+				<strong>Username already exists!</strong>
+				 Please enter the different name for the current user.
+		  </div>	
+		  <div class="alert alert-danger" th:if="${emailExists}">
+			   <strong>Email already exists!</strong>
+			    Please enter the different email for the current user.
+		 </div>
+			<div class="alert alert-succss" th:if="${updateSuccess}">
+				<strong>Update Success!</strong>
+			</div>
+            <div class="job-post-box">
+                <form th:action="@{/newCompany}" method="post"
+                enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="CompanyName">Company Name</label>
+                            <input type="text" class="form-control" id="exampleInputName" placeholder="Full name of company"
+                            th:value="${company.companyName}" name="companyName" required />
+                        </div>
+                    </div>
+                    <div class="col">
+                        
+                            <div class="form-group">
+                                <label for="email">Company Email</label>
+                                <input type="text" class="form-control" id="email" 
+                                placeholder="Company Email" th:value="${user.email}" th:name="email" />
+                            </div>
+            
+                    </div>
+                </div>
+                
+                <div class="row">
+					<div class="col-lg-4 col-md-4">
+						<div class="form-group">
+							<label for="currentPassword">Current Password</label>
+							<input type="password" class="form-control" id="currentPassword" name="password" />
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4">
+					   <div class="form-group">
+							<label for="txtNewPassword">New Password</label>
+							<input type="password" class="form-control" id="txtNewPassword" name="newPassword" />
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4">
+					   <div class="form-group">
+							<label for="txtConfirmPassword">Confirm Password</label>
+							<input type="password" class="form-control" id="txtConfirmPassword" name="newPassword" />
+						</div>
+					</div>
+				</div>
+                
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label for="exampleCompanyEmail">Company Phone</label>
+                            <input type="text" class="form-control" id="exampleInputPhone"
+                            placeholder="Company Phone" th:value="${company.companyPhone}" 
+                            name="companyPhone" required />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label for="exampleCompanyWebsite">Company Website</label>
+                            <input type="text" class="form-control" id="exampleInputWebsite"
+                            placeholder="Company Website"
+                            th:value="${company.companyWebsite}" name="companyWebsite"  />
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label for="exampleCompanyType">Company Type</label>
+                            <input type="text" class="form-control" id="exampleInputType"
+                            placeholder="What kind of your company is"
+                            th:value="${company.companyType}" name="companyType"  />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="form-group">
+                            <label for="sel1">Number of Employee:</label>
+                            <select class="form-control" id="sel1" th:value="${company.noOfEmployee}" name="noOfEmployee">
+                                <option value="" selected="selected" disabled="disabled">Please
+                                    select number of employees...</option>
+                                    <option value="1 - 5 Employees" th:selected="(${company.noOfEmployee}=='1 - 5 Employees')">1 - 5 Employees</option>
+                                    <option value="10 - 50 Employees" th:selected="(${company.noOfEmployee}=='10 - 50 Employees')">10 - 50 Employees</option>
+                                    <option value="100 - 500 Employees" th:selected="(${company.noOfEmployee}=='100 - 500 Employees')">100 - 500 Employees</option>
+                                    <option value="600 - 1,000 Employees" th:selected="(${company.noOfEmployee}=='600 - 1,000 Employees')">600 - 1,000 Employees</option>
+                                    <option value="More than 1,000 Employees" th:selected="(${company.noOfEmployee}=='More than 1,000 Employees')">More than 1,000 Employees</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exampleInputAddress">Company Address</label>
+                        <textarea class="form-control small" id="exampleInputAddress" placeholder="Write your company address" rows="3"
+                        th:text="${company.companyAddress}" name="companyAddress" ></textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group ">
+                                <label>Company Logo</label>
+                                <div class="box text-center">
+                                    <input type="file" id="file-5" class="inputfile inputfile-4" th:value="${company.companyLogo}" name="companyLogo" accept=".jpeg, .png" />
+                                    <label for="file-5">
+                                        <i>
+                                            <img src="imags/job-post.png" class="imtges" alt="">
+                                        </i>
+                                        <span>Drop your logo here, or <i class="font-color-orange">Browse</i></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label>Company Feature Photo</label>
+                                <div class="box text-center">
+                                    <input type="file" id="file-7" 
+                                    class="inputfile1 inputfile-4" th:value="${company.companyFeaturePhotos}" name="companyFeaturePhotos" accept=".jpeg, .png" multiple />
+                                    <label for="file-7">
+                                        <i>
+                                            <img src="imags/job-post.png" class="imtges" alt="">
+                                        </i>
+                                        <span>Drop your feature photo here, or <i class="font-color-orange">Browse</i></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputMission">Company Mission</label>
+                        <textarea class="form-control small" id="exampleInputMission" placeholder="Write your Company Mission" rows="3" th:text="${company.companyMission}" name="companyMission" ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputVision">Company Vision</label>
+                        <textarea class="form-control large" id="exampleInputVision" 
+                        placeholder="Write your Company Vision" rows="3" th:text="${company.companyVision}" 
+                        name="companyVision" ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Agree with term and conditions</label>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input " id="exampleCheck1" required />
+                            <label class="form-check-label text-left" for="exampleCheck1">By clicking on terms and conditions, you accept our Subscription Agreement and Privacy Policy</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn Post-Job-Offer">Create</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <footer th:replace="common/master :: footer" />
+    
+    <div th:replace="common/master :: common-script" />
+</body>
+
+</html>

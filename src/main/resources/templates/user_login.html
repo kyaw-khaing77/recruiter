@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="eng" xmlns:th="http://www.w3.org/1000/xhtml">
+
+<head th:replace="common/master :: header" />
+
+<body>
+<head th:replace="common/master :: common-header" />
+
+<section id="file_upload ">
+	<!-- Main Content -->
+	<div class="container" >
+	    <div class="vertical-space-100"></div>
+		<div class="vertical-space-101"></div>
+		
+		
+	<!-- <div class="container-fluid">
+		<div class="row main-content bg-success text-center">
+			<div class="col-md-4 text-center company__info">
+				<span class="company__logo"><h2><span class="fa fa-android"></span></h2></span>
+				<h4 class="company_title">Your Company Logo</h4>
+			</div>
+			<div class="col-md-8 col-xs-12 col-sm-12 login_form ">
+				<div class="container-fluid">
+					<div class="row">
+						<h2>Log In</h2>
+					</div>
+					<div class="row">
+					    <div th:if="${param.error != null}" style="color:red;">Incorrect username or password.</div>
+						<form th:action="@{/login}" method="POST" class="form-group">
+							<div class="row">
+								<input type="text" name="username" id="username" class="form__input" placeholder="Username">
+							</div>
+							<div class="row">
+								<span class="fa fa-lock"></span>
+								<input type="password" name="password" id="password" class="form__input" placeholder="Password">
+							</div>
+							<div class="row">
+								<input type="submit" value="Submit" class="btn">
+							</div>
+						</form>
+					</div>
+					<div class="row">
+						<p>Don't have an account? <a th:href="@{/userRegister}">Register Here</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	
+	<div class="container">
+
+				<div class="col-md-4 offset-md-4">
+				    
+                     <div th:if="${usernameExists}">
+                       <p>User Name Already Existed</p>
+                     </div>
+                     	<div th:if="${emailExists}">
+                       <p>Email Already Existed</p>
+                     </div>
+
+					<div class="card">
+						<div class="card-header text-white text-center" style="background-color: #F26522">
+							<span class="fa fa-user-circle fa-3x"></span>
+							<p>Log In</p>
+						</div>
+						<div class="card-body">
+					    <div th:if="${param.error != null}" style="color:red;">Incorrect username or password.</div>
+							<form th:action="@{/login}" method="POST" class="form-group" id="userLoginForm">
+								<div class="form-group">
+									<label for="username">User Name</label><br><br> <input
+										type="text" class="form-control" id="username" name="username"
+										aria-describedby="emailHelp" placeholder="Enter Name" required="required">
+								</div>
+								<div class="form-group">
+									<label for="password">Password</label><br><br> <input
+										type="password" class="form-control" id="password" name="password" placeholder="Enter password"
+										aria-describedby="emailHelp" required="required">
+								</div>
+								
+								<div class="row">
+									<p>Don't have an account? <a th:href="@{/userRegister}" style="color: red;">Register Here</a></p>
+				    	       </div><br>
+								<div style="float:right">
+									<button class="btn btn-primary" type="button" disabled id="loader" style="display: none;background-color: #F26522">
+										<span class="spinner-border spinner-border-sm" role="status"
+											aria-hidden="true"></span>Please wait
+									</button>
+									<button type="submit" class="btn btn-primary" id="submit-btn" style="background-color: #F26522">Log In</button>
+								</div>
+							</form>
+						</div>
+					</div>
+
+				</div>
+
+       </div>
+
+	</div>
+</section>
+
+
+<br>
+<br>
+<head th:replace="common/master :: footer" />
+
+<head th:replace="common/master :: common-script" />
+<script type="text/javascript">
+$('#userLoginForm').on('submit',function(event){
+	
+	$('#submit-btn').hide();
+	$('#loader').show();
+	
+}); 
+
+function success(){
+	$('#submit-btn').show();
+	$('#loader').hide();
+    swal("Email Successfully Sent!", "Please check your email!", "success");
+}	
+</script>
+</body>
+</html>

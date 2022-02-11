@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="eng" xmlns:th="http://www.w3.org/1000/xhtml">
+
+<head th:replace="common/master :: header" />
+
+<body class="background-color-white">
+    
+    <head th:replace="common/master :: common-header" />
+    
+    
+    <section id="payment">
+        <div class="vertical-space-100"></div>
+        <div class="vertical-space-101"></div>
+        <div class="container">
+            <div class="list-box">
+                <a href="#" class="font-color-black margin-right">Job </a> > <a href="#" class="font-color-orange margin-left">Payment</a>
+            </div>
+            <div class="vertical-space-60"></div>
+            <div class="job-post-box">
+                <form th:action="@{/savePayment}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="examplePaymentType" class="form-group">Payment Type</label>
+                        <input type="text" class="form-control" id="exampleInputPaymentType" placeholder="Full name PaymentType"
+                        th:value="${payment.paymentType}" name="paymentType" required />
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="exampleCardName" class="form-group">Card Name</label>
+                                <input type="text" class="form-control" id="exampleInputCardName" 
+                                placeholder="Payment cardName" th:value="${payment.cardName}" name="cardName" required />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="exampleCardNumber" class="form-group">Card Number</label>
+                                <input type="text" class="form-control" id="exampleInputCardNumber"
+                                placeholder="Payment Card Number" th:value="${payment.cardNumber}" name="cardNumber" required />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="exampleCVC" class="form-group">CVC</label>
+                                <input type="int" class="form-control" id="exampleInputCVC"
+                                placeholder="CVC" th:value="${payment.cvc}" 
+                                name="cvc" required />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="exampleHolderName" class="form-group">Holder Name</label>
+                                <input type="text" class="form-control" id="exampleInputHolderName"
+                                placeholder="Enter Holder Name"
+                                th:value="${payment.holderName}" name="holderName"  />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="exampleExpiryMonth" class="form-group">ExpiryMonth</label>
+                                <input type="int" class="form-control" id="exampleInputPhone"
+                                placeholder="Expiry Month" th:value="${payment.expiryMonth}" 
+                                name="expiryMonth" required />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="exampleExpiryYear"class="form-group">Expiry Year</label>
+                                <input type="text" class="form-control" id="exampleInputWebsite"
+                                placeholder="Expiry Year"
+                                th:value="${payment.expiryYear}" name="expiryYear"  />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary Post-Job-Offer">Upload Payment Information</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <footer th:replace="common/master :: footer" />
+    
+    <div th:replace="common/master :: common-script" />
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="eng" xmlns:th="http://www.w3.org/1000/xhtml">
+
+<head th:replace="common/master :: header" />
+<body>
+    <header th:replace="common/master :: common-header" />
+    
+    <div class="mx-5">
+        <section id="resent-job-post" class="mt-10">
+            <div class="vertical-space-100"></div>
+            <div class="vertical-space-101"></div>
+            <div class="list-box">
+                <a th:href="@{/viewPosts}" class="font-color-black margin-right">All Jobs </a> > <a href="#" class="font-color-orange margin-left"> Post job</a>
+            </div>
+            <div class="d-flex align-items-center justify-content-center">
+                <div class="shadow-lg p-3 mb-8 w-25 bg-light text-align-center rounded ">  
+                    <h1 class="display-3 text-center" th:text="${jobPost.jobTitle}"></h1>
+                    <a th:href="@{/jobApply/}+${jobPost.postId}" class="btn btn-info h-50 w-100">Job Apply</a></div>
+                </div>
+                <hr>
+                <div class="border border-primary w-100 p-3 rounded">
+                    <div class="d-flex justify-content-around mx-5">
+                        <div>
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            <span class="text" th:text="${jobPost.jobType}"></span>
+                        </div>
+                        <div>
+                            <i class="fa fa-user text-primary" aria-hidden="true"></i>
+                            <span class="text" th:text="${jobPost.employeeLimit}"></span> applicant(s)
+                        </div>
+                        <div>
+                            <i class="fa fa-usd text-warning" aria-hidden="true"></i>
+                            
+                            <span th:if="${jobPost.minSalary gt 0 and jobPost.maxSalary gt 0}">
+                                $<span class="text font-size" th:text="${jobPost.minSalary}"></span> ~
+                                $<span class="text font-size" th:text="${jobPost.maxSalary}"></span>
+                            </span>
+                            <span th:if="${jobPost.minSalary == null and jobPost.maxSalary == null}">
+                                Negotiable
+                            </span>
+                        </div>
+                        <div>
+                            <i class="fa fa-map-marker text-primary" aria-hidden="true"></i>
+                            <span th:text="${jobPost.jobLocation}"></span>
+                        </div>
+                        <div>
+                            <i class="fa fa-shield text-success" aria-hidden="true"></i>
+                            Verified
+                        </div>
+                        <div>
+                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                            <span th:text="${dateDiff}"></span> day(s) ago
+                        </div>
+                    </div>
+                </div>
+                </section>
+                
+                <section id="jobDescription" class="mt-5">
+                    <h1 class="display-5">Job Description</h1>
+                    <p th:text="${jobPost.jobDescription}"></p>
+                    <hr>
+                </section>
+                
+                <section id="jobRequirement" class="mt-5">
+                    <h1 class="display-5">Job Requirements</h1>
+                    <p th:text="${jobPost.jobRequirement}"></p>
+                    <hr>
+                </section>
+                
+                <section id="jobBenefit" class="mt-5">
+                    <h1 class="display-5">Job Benefits</h1>
+                    <p th:text="${jobPost.jobBenefit}"></p>
+                    <hr>
+                </section>
+                <a th:href="@{/jobApply/}+${jobPost.postId}" class="btn btn-info h-50">Job Apply</a>
+            </div>
+            <footer th:replace="common/master :: footer" />
+            
+            <div th:replace="common/master :: common-script" />
+        </body>
+        </html>

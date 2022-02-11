@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="eng" xmlns:th="http://www.w3.org/1000/xhtml">
+
+<head th:replace="common/master :: header" />
+
+<body class="background-color-white" ng-app="ngAnimate">
+ 
+    <head th:replace="common/master :: common-header" />
+    
+    <section id="post_job">
+        <div class="vertical-space-100"></div>
+        <div class="vertical-space-101"></div>
+        <div class="container">
+            <div class="list-box">
+                <a th:href="@{/viewPosts}" class="font-color-black margin-right">All Jobs </a> > <a href="#" class="font-color-orange margin-left"> Post job</a>
+            </div>
+            <!-- <a href="#" class="Save">Save</a> -->
+            <div class="vertical-space-60"></div>
+            <div class="job-post-box">
+                <form th:action="@{/addPost}" method="POST">
+                    <input type="hidden" name="postId" th:value="${post.postId}" />
+                    <div class="form-group">
+                        <label for="jobTitle">Job title</label>
+                        <input type="text" class="form-control" id="jobTitle" th:name="jobTitle" th:value="${post.jobTitle}" placeholder="Enter your job title" required />
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label for="jobCategory">Job Category</label>
+                                <select th:name="jobCategory" id="jobCategory" class="form-control" required>
+                                    <option value="" disabled="disabled">Please select an option</option>
+                                    <option th:each="jobCategory : ${jobCategoriesList}" th:text="${jobCategory}"
+                                    th:selected="(${post.jobCategory}==${jobCategory})"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <label for="jobLevel">Job Level</label>
+                                <select th:name="jobLevel" id="jobLevel" class="form-control" required>
+                                    <option value="" disabled="disabled">Please select an option</option>
+                                    <option th:selected="*{post.jobLevel=='Entry Level'}">Entry Level</option>
+                                    <option th:selected="*{post.jobLevel=='Manager'}">Manager</option>
+                                    <option th:selected="*{post.jobLevel=='Experienced Non-Manager'}">Experienced Non-Manager</option>
+                                    <option th:selected="*{post.jobLevel=='Director and above'}">Director and above</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="Job-Nature">
+                        <label>Job Nature</label>
+                    </div>
+                    <div>
+                        <div class="radio-tile-group">
+                            <div class="input-container">
+                                <input type="radio" name="jobType" class="radio-button" value="Full Time" th:checked="*{post.jobType=='Full Time'}">
+                                <div class="radio-tile">
+                                    <label for="fullTime" class="radio-tile-label">Full Time</label>
+                                </div>
+                            </div>
+                            <div class="input-container">
+                                <input type="radio" name="jobType" class="radio-button" value="Part Time" th:checked="*{post.jobType=='Part Time'}">
+                                <div class="radio-tile">
+                                    <label for="fullTime" class="radio-tile-label">Part Time</label>
+                                </div>
+                            </div>
+                            <div class="input-container">
+                                <input type="radio" name="jobType" class="radio-button" value="Freelancer" th:checked="*{post.jobType=='Freelancer'}">
+                                <div class="radio-tile">
+                                    <label for="fullTime" class="radio-tile-label">Freelancer</label>
+                                </div>
+                            </div>
+                            <div class="input-container">
+                                <input type="radio" name="jobType" class="radio-button" value="Internship" th:checked="*{post.jobType=='Internship'}">
+                                <div class="radio-tile">
+                                    <label for="fullTime" class="radio-tile-label">Internship</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-lg-4 col-md-4">
+                            <div class="form-group">
+                                <label for="ageLimit">Age Limit</label>
+                                <input type="text" class="form-control" id="ageLimit" th:name="ageLimit" th:value="${post.ageLimit}" placeholder="Enter Age Limit" required />
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="form-group">
+                                <label for="employeeLimit">Number of applicants</label>
+                                <input type="text" class="form-control" id="employeeLimit" th:name="employeeLimit" th:value="${post.employeeLimit}" placeholder="Enter Number of Applicants" required />
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="form-group">
+                                <label for="deadline">Deadline</label>
+                                <input type="date" class="form-control" id="deadline" th:name="deadline" th:value="${post.deadline}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="salary">Salary Range:</label>
+                                <div>
+                                    <input type="checkbox" ng-model="checked" th:attr="ng-init='checked='+${post.minSalary == null and post.maxSalary == null}" />   Negotiable
+                                </div>
+                                <div class="d-flex flex-row animate-if" ng-if="!checked">
+                                    <input type="text" class="form-control mr-3" id="minSalary" th:name="minSalary" th:value="${post.minSalary}" placeholder="Min Salary (e.g. $5,000)" required>
+                                    <input type="text" class="form-control" id="maxSalary" th:name="maxSalary" th:value="${post.maxSalary}" placeholder="Max Salary (e.g. $10,000)" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="jobLocation">Job Location:</label>
+                                <select
+                                id="jobLocation" class="form-control"
+                                th:name="jobLocation"
+                                required="required">
+                                <option value="" disabled="disabled">Please
+                                    select an option</option>
+                                    <option th:each="jobLocation : ${jobLocationsList}" th:text="${jobLocation}"
+                                    th:selected="(${post.jobLocation}==${jobLocation})"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="jobHour">Job Hours</label>
+                                <input type="text" class="form-control" id="jobHour" th:name="jobHour" th:value="${post.jobHour}" placeholder="8:00am ~ 5:00pm" required />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="jobDay">Job Day</label>
+                                <input type="text" class="form-control" id="jobDay" th:name="jobDay" th:value="${post.jobDay}" placeholder="Monday ~ Friday" required />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group ">
+                                <label>Company Logo</label>
+                                <div class="box text-center">
+                                    <input type="file" name="file-5[]" id="file-5" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
+                                    <label for="file-5">
+                                        <i>
+                                            <img src="imags/job-post.png" class="imtges" alt="">
+                                        </i>
+                                        <span>Drop your file here, or <i class="font-color-orange">Browse</i></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label>Document</label>
+                                <div class="box text-center">
+                                    <input type="file" name="file-7[]" id="file-7" class="inputfile1 inputfile-4" data-multiple-caption="{count} files selected" multiple />
+                                    <label for="file-7">
+                                        <i>
+                                            <img src="imags/job-post.png" class="imtges" alt="">
+                                        </i>
+                                        <span>Drop your file here, or <i class="font-color-orange">Browse</i></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label for="jobDescription">Job Description</label>
+                        <textarea class="form-control small" id="jobDescription" th:name="jobDescription" th:inline="text" placeholder="Write job description" rows="3" required>[[${post.jobDescription}]]</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="jobRequirement">Job Requirement</label>
+                        <textarea class="form-control large" id="jobRequirement" th:name="jobRequirement" th:inline="text" placeholder="Write job requirement" rows="3" required>[[${post.jobRequirement}]]</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="jobBenefit">Job Benefit</label>
+                        <textarea class="form-control large" id="jobBenefit" th:name="jobBenefit" th:inline="text" placeholder="Write job benefit" rows="3" required>[[${post.jobBenefit}]]</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Agree with term and conditions</label>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input " id="exampleCheck1" required />
+                            <label class="form-check-label text-left" for="exampleCheck1">Agree with the <a href="">Term and Conditions</a></label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn Post-Job-Offer">Post Job Offer</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <footer th:replace="common/master :: footer" />
+    
+    <div th:replace="common/master :: common-script" />
+    <script th:src="@{/js/angular.min.js}"></script>
+    <script th:src="@{/js/angular-animate.js}"></script>
+</body>
+
+</html>

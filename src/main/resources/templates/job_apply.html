@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="eng" xmlns:th="http://www.w3.org/1000/xhtml">
+
+<head th:replace="common/master :: header" />
+
+<body th:onload="${emailSuccess}? 'success()'" >
+<head th:replace="common/master :: common-header" />
+
+<section id="file_upload">
+	<div class="container"></div>
+
+</section>
+
+<section id="file_upload ">
+
+	<div class="container" >
+	    <div class="vertical-space-100"></div>
+		<div class="vertical-space-101"></div>
+		<div class="col-md-6 offset-md-3">
+		
+			<div class="card">
+				<div class="card-header text-white text-center" style="background-color: #F26522;color: white;padding: 30px;">
+					<p>Apply Job</p>
+				</div>
+				<div class="card-body">
+					<form th:action="@{/jobApply/}+${post_id}" method="post" enctype="multipart/form-data" id="applyJob">
+                        <input type="hidden" th:value="${user.userId}" name="userId">
+						<div class="form-outline mb-4">
+							<input type="text" id="userName" class="form-control" name="userName" th:value="${user.username}" disabled="disabled"/>
+							 <label class="form-label" for="userName">Your name</label>
+						</div>
+						<div class="form-outline mb-4">
+							<input type="email" id="userEmail" name="userEmail" class="form-control" th:value="${user.email}" disabled="disabled"/> 
+							<label class="form-label" for="userEmail">Email</label>
+						</div>
+						<div class="form-outline mb-4">
+							<input type="text" id="emailSubject" name="emailSubject" class="form-control"/>
+							 <label class="form-label" for="emailSubject">Your Email Subject</label>
+						</div>
+
+						<div class="col-md-12" style="padding:0;">
+                                <div class="form-group"><label>Upload Your File </label> <br><br>
+                                <input type="file" id="fileId" name="attachFiles" class="form-control" multiple="multiple" onchange="fileValidation()"/></div>
+                        </div>
+
+						<div class="form-outline mb-4">
+							<textarea class="form-control" id="contentAboutJob" rows="4" name="contentAboutJob"></textarea>
+							<label class="form-label" for="contentAboutJob">Why Do You Want This Job?</label>
+						</div>
+						<div class="form-outline mb-4">
+							<textarea class="form-control" id="contentAboutCompany" rows="4" name="contentAboutCompany"></textarea>
+							<label class="form-label" for="contentAboutCompany">What Do You Want To Talk About This Company?</label>
+						</div>
+						<div style="float:right">
+							<button class="btn btn-primary" type="button" disabled id="loader" style="display: none;">
+								<span class="spinner-border spinner-border-sm" role="status"
+									aria-hidden="true"></span> Sending Email
+							</button>
+							<button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+</section>
+
+
+<br>
+<br>
+<head th:replace="common/master :: footer" />
+
+<head th:replace="common/master :: common-script" />
+
+<script>
+function fileValidation() {
+  const fi = document.getElementById('fileId');
+  var size = 0;
+  if (fi.files.length > 0) {
+      for (var i = 0; i <= fi.files.length - 1; i++) {
+    	  size += fi.files.item(i).size;
+      }
+  }
+  
+  if(((size/1024)/1024)>10){
+	  swal("Total File Size is larger than 10 MB.Please select a file less than 10MB.");
+	  document.getElementById("fileId").value = "";
+  }
+}
+
+
+$('#applyJob').on('submit',function(event){
+		
+	$('#submit-btn').hide();
+	$('#loader').show();
+	
+}); 	
+	
+function success(){
+	$('#submit-btn').show();
+	$('#loader').hide();
+    swal("Good Luck!", "Email successfully Sent!", "success");
+}	
+
+
+</script>
+
+
+</body>
+</html>
